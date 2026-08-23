@@ -12,3 +12,7 @@ build/
 # Local agent / memory artifacts (not for public repo)
 .memsearch/
 .kimi-code/
+# zfa local state
+.zfa/
+.zfa.json
+build.yaml

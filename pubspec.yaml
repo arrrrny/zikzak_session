@@ -4,10 +4,23 @@ version: 0.0.1
 publish_to: 'none'
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.11.0
 
 dependencies:
+  json_annotation: ^4.12.0
+  zorphy_annotation: ^2.3.0
+  # Path dep while hosted zuraffa 6.0.0 is broken (lib/src/extensions/
+  # was gitignored — fixed upstream in zuraffa #482, awaiting publish).
+  # Flip to hosted zuraffa: ^6.1.0 when it ships.
+  zuraffa:
+    path: ../zuraffa
 
 dev_dependencies:
+  build_runner: ^2.16.0
+  json_serializable: ^6.14.1
   lints: ^4.0.0
+  mocktail: ^1.0.5
   test: ^1.24.0
+
+dependency_overrides:
+  analyzer: 14.1.0
