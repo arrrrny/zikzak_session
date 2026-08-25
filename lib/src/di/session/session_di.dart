@@ -6,6 +6,7 @@ import '../../data/session/portable_session_file_datasource.dart';
 import '../../data/repositories/data_portable_session_repository.dart';
 import '../../domain/repositories/portable_session_repository.dart';
 import '../../domain/session/session_port.dart';
+import '../../domain/session/session_manager.dart';
 import '../../data/session/file_session_store.dart';
 import '../usecases/index.dart' as usecases;
 
@@ -39,6 +40,9 @@ void registerSessionDependencies(GetIt getIt, {required Directory storeDir}) {
     ..registerLazySingleton<PortableSessionRepository>(
       () =>
           DataPortableSessionRepository(getIt<PortableSessionFileDataSource>()),
+    )
+    ..registerLazySingleton<SessionManager>(
+      () => SessionManager(port: getIt<SessionPort>()),
     );
   // The generated usecase registrations resolve the repository above.
   usecases.registerAllUseCases(getIt);

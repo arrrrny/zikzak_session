@@ -16,3 +16,6 @@ build/
 .zfa/
 .zfa.json
 build.yaml
+
+# Test coverage output
+coverage/

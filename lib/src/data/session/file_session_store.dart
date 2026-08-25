@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../../domain/entities/portable_session/portable_session.dart';
+import '../../domain/entities/portable_session_artifact/portable_session_artifact.dart';
 import '../../domain/session/session_port.dart';
 
 /// File-backed [SessionPort] (spec FR-006/FR-008/FR-009).
@@ -34,7 +35,11 @@ class FileSessionStore implements SessionPort {
     final target = _fileFor(session.id);
     final tmp = File('${target.path}.tmp');
     // Atomic write: the rename is the commit point.
-    await tmp.writeAsString(jsonEncode(session.toJson()), flush: true);
+    final map = session.toJson();
+    // Embed the format version so a future reader can reject unsupported
+    // formats (spec FR-011). Absent version = legacy (tolerated).
+    map['formatVersion'] = PortableSessionArtifact.version;
+    await tmp.writeAsString(jsonEncode(map), flush: true);
     await tmp.rename(target.path);
   }
 
@@ -103,6 +108,12 @@ class FileSessionStore implements SessionPort {
     final decoded = jsonDecode(source);
     if (decoded is! Map<String, dynamic>) {
       throw const SessionFileException('session file is not a JSON object');
+    }
+    final version = decoded['formatVersion'];
+    if (version is int && version > PortableSessionArtifact.version) {
+      throw SessionFileException(
+        'unsupported session format version: $version',
+      );
     }
     final id = decoded['id'];
     if (id is! String || id.isEmpty) {
