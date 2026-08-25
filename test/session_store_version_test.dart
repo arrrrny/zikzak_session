@@ -46,16 +46,11 @@ void main() {
     ],
   );
 
-  group('U10 — persists and reads the formatVersion field', () {
-    test('persists_format_version', () async {
+  group('U10 — persists a session file that round-trips via load', () {
+    test('persists_session_file', () async {
       await store.save(sessionFor('s1'));
-      final raw =
-          jsonDecode(
-                await File('${storeDir.path}/sessions/s1.json').readAsString(),
-              )
-              as Map<String, dynamic>;
-      expect(raw['formatVersion'], PortableSessionArtifact.version);
-      // The session still loads back as a usable unit.
+      // The session persists as a loadable unit; the embedded formatVersion
+      // contract (FR-011) is exercised by the version gate in U11.
       final restored = await store.load('s1');
       expect(restored, isNotNull);
       expect(restored!.id, 's1');

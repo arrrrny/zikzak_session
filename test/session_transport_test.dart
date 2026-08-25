@@ -112,9 +112,9 @@ void main() {
     test('checksum_mismatch_throws', () async {
       final storeDir = Directory('${tempDir.path}/store');
       final manager = SessionManager(port: FileSessionStore(storeDir));
-      final artifact = (await manager.exportAfterSeed(
-        sessionFor('a', 'https://a.test'),
-      ));
+      final seed = sessionFor('a', 'https://a.test');
+      await manager.save(seed);
+      final artifact = await manager.export('a');
       final tampered = PortableSessionArtifact(
         formatVersion: artifact.formatVersion,
         exportedAt: artifact.exportedAt,
@@ -132,9 +132,9 @@ void main() {
     test('version_rejected_throws', () async {
       final storeDir = Directory('${tempDir.path}/store');
       final manager = SessionManager(port: FileSessionStore(storeDir));
-      final artifact = (await manager.exportAfterSeed(
-        sessionFor('a', 'https://a.test'),
-      ));
+      final seed = sessionFor('a', 'https://a.test');
+      await manager.save(seed);
+      final artifact = await manager.export('a');
       final bad = PortableSessionArtifact(
         formatVersion: 999,
         exportedAt: artifact.exportedAt,
@@ -212,15 +212,4 @@ void main() {
       expect(loaded!.toJson(), equals(session.toJson()));
     });
   });
-}
-
-extension on SessionManager {
-  /// Saves [session] then exports it, returning the produced artifact (helper
-  /// for the tamper/version tests that need a valid artifact to corrupt).
-  Future<PortableSessionArtifact> exportAfterSeed(
-    PortableSession session,
-  ) async {
-    await save(session);
-    return export(session.id);
-  }
 }

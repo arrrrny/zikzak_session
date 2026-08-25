@@ -45,8 +45,8 @@ void main() {
     });
   });
 
-  group('U8 — rejects a cookie with an empty name or missing domain', () {
-    test('rejects_bad_cookie', () {
+  group('U8 — rejects a cookie with an empty name', () {
+    test('rejects_empty_cookie_name', () {
       final noName = validSession().copyWith(
         cookies: [
           CookieEntry(
@@ -64,7 +64,11 @@ void main() {
         validator.validate(noName).join(' ').toLowerCase(),
         contains('cookie'),
       );
+    });
+  });
 
+  group('U8 — rejects a cookie with a missing domain', () {
+    test('rejects_missing_cookie_domain', () {
       final noDomain = validSession().copyWith(
         cookies: [
           CookieEntry(
