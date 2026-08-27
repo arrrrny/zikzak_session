@@ -34,3 +34,21 @@
 ## Non-goals (per spec)
 
 - At-rest encryption; remote sync; session management UI; cross-webview-engine cookie parity.
+
+## Phase 6 — Transportable Session API (export/import + facade + validation + DI)
+
+Adds the consumer-facing whole-API surface on top of the file store: a
+versioned, checksummed transport bundle, a high-level `SessionManager`,
+consistency validation, and DI exposure. Behaviors trace to the TDD test list
+(`specs/001-portable-browser-sessions/tdd/test-list.md`).
+
+- [x] T015 `PortableSessionArtifact` — self-contained, checksummed transport bundle (FR-007/FR-008/FR-010/FR-011) [U5]
+- [x] T016 `SessionArtifactCodec` — encode/decode with checksum + version verification (FR-007/FR-010/FR-011) [U1][U2][U3][U4]
+- [x] T017 `SessionValidator` — validate + normalize (empty-id/cookie/area/path defaults) (FR-010) [U6][U7][U8][U9]
+- [x] T018 `FileSessionStore` writes `formatVersion`; skips unsupported versions as corrupt (FR-006/FR-009) [U10][U11][U12]
+- [x] T019 `SessionManager` CRUD facade + `export`/`import` transport (FR-001/FR-007/FR-008) [U13][U14][U16][U19][U21][U22]
+- [x] T020 `ImportSessionUseCase` rejects tampered/unsupported artifacts; resolves id collisions non-destructively (FR-010/FR-011) [U17][U18][U20]
+- [x] T021 `registerSessionDependencies` exposes `SessionManager` via `GetIt` (FR-006/FR-007) [U23][US4]
+- [x] T022 Acceptance gate green: A1–A6 (SC-001…SC-006) via `dart test` (36 tests) — baseline `green` at `f8812aa`.
+- [x] T023 `dart analyze` clean (one accepted warning: `../zuraffa` path dep; hosted 6.0.0 broken) + `/opt/flutter/bin/dart format` applied.
+

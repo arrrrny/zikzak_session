@@ -22,7 +22,19 @@ export 'src/domain/session/session_port.dart';
 export 'src/domain/entities/cookie_entry/cookie_entry.dart';
 export 'src/domain/entities/storage_entry/storage_entry.dart';
 export 'src/domain/entities/portable_session/portable_session.dart';
+export 'src/domain/entities/portable_session_artifact/portable_session_artifact.dart';
 export 'src/domain/repositories/portable_session_repository.dart';
+
+// Validation — consistency checks for save/import.
+export 'src/domain/validation/session_validator.dart';
+
+// Transport — artifact bundle + codec for moving sessions across consumers.
+export 'src/data/transport/session_artifact_codec.dart';
+
+// Facade + transport use cases — the consumer-facing whole-API surface.
+export 'src/domain/session/session_manager.dart';
+export 'src/domain/usecases/transport/export_session_usecase.dart';
+export 'src/domain/usecases/transport/import_session_usecase.dart';
 
 // Data — the file-backed store and its datasource adapter.
 export 'src/data/session/file_session_store.dart'
