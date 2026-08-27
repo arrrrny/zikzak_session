@@ -2,7 +2,7 @@ name: zikzak_session
 description: A session library for ZikZak.
 repository: https://github.com/arrrrny/zikzak_session
 homepage: https://github.com/arrrrny/zikzak_session
-version: 0.1.0
+version: 0.2.0
 
 environment:
   sdk: ^3.11.0
@@ -11,12 +11,12 @@ dependencies:
   crypto: ^3.0.6
   json_annotation: ^4.12.0
   zorphy_annotation: ^2.3.0
-  zuraffa:
-    path: ../zuraffa
+  zuraffa: ^6.0.0
 
 dev_dependencies:
   build_runner: ^2.16.0
   json_serializable: ^6.14.1
+  get_it: ^9.2.1
   lints: ^4.0.0
   mocktail: ^1.0.5
   test: ^1.24.0

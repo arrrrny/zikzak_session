@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0 - 2026-08-27
+
+### Features
+
+- Transportable session API: `SessionManager` facade exposing `save` / `load` / `list` / `delete` plus whole-session `export` / `import` (US transportable sessions).
+- `ExportSessionUseCase` / `ImportSessionUseCase` move a `PortableSession` across consumers as a self-contained artifact.
+- `PortableSessionArtifact` + `SessionArtifactCodec` bundle cookies + DOM storage into a versioned, integrity-checked, transportable artifact (`encode` / `decode`).
+- `SessionValidator` consistency checks applied on `save` and `import`.
+- DI: `registerSessionDependencies` now also wires the transport use cases behind `SessionManager`.
+
+### Fixes
+
+- Pin `zuraffa` to `^6.0.0` and add `.pubignore` so the package is ready for pub.dev publish.
+
+### Tests
+
+- Harden transport, validator, and store session tests.
+
+### Chores
+
+- Add MIT LICENSE (publish requirement).
+
 ## 0.1.0 - 2026-08-24
 
 ### Initial publishable release
