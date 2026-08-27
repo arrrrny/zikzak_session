@@ -96,4 +96,16 @@ void main() {
       expect(b.storage.any((e) => e.value == 'v-a'), isFalse);
     });
   });
+
+  group('US4 — save rejects an invalid session', () {
+    test('save_throws_on_invalid', () async {
+      // `sessionFor` builds a valid session; an empty id fails validation and
+      // `save` must hard-stop rather than persist it.
+      final invalid = sessionFor('', 'https://a.test');
+      await expectLater(
+        manager.save(invalid),
+        throwsA(isA<SessionValidationException>()),
+      );
+    });
+  });
 }

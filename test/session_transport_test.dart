@@ -212,4 +212,19 @@ void main() {
       expect(loaded!.toJson(), equals(session.toJson()));
     });
   });
+
+  group('U17b — import rejects an invalid session', () {
+    test('import_throws_on_invalid', () async {
+      final storeDir = Directory('${tempDir.path}/store');
+      final manager = SessionManager(port: FileSessionStore(storeDir));
+      // Checksum/version pass, but the wrapped session is invalid (empty id),
+      // so `import` must reject it via the validator before saving.
+      final invalid = sessionFor('a', 'https://a.test').copyWith(id: '');
+      final artifact = const SessionArtifactCodec().encodeSession(invalid);
+      await expectLater(
+        manager.import(artifact),
+        throwsA(isA<SessionValidationException>()),
+      );
+    });
+  });
 }

@@ -44,13 +44,27 @@ class PortableSessionArtifact {
 
   factory PortableSessionArtifact.fromJson(Map<String, dynamic> json) =>
       PortableSessionArtifact(
-        formatVersion: (json['formatVersion'] as num).toInt(),
-        exportedAt: (json['exportedAt'] as num).toInt(),
-        checksum: json['checksum'] as String,
-        session: PortableSession.fromJson(
-          json['session'] as Map<String, dynamic>,
-        ),
+        formatVersion: _asInt(json['formatVersion'], 'formatVersion'),
+        exportedAt: _asInt(json['exportedAt'], 'exportedAt'),
+        checksum: _asString(json['checksum'], 'checksum'),
+        session: json['session'] is Map<String, dynamic>
+            ? PortableSession.fromJson(json['session'] as Map<String, dynamic>)
+            : throw const FormatException('artifact.session must be an object'),
       );
+
+  static int _asInt(dynamic value, String field) {
+    if (value is! num) {
+      throw FormatException('artifact.$field must be an int');
+    }
+    return value.toInt();
+  }
+
+  static String _asString(dynamic value, String field) {
+    if (value is! String) {
+      throw FormatException('artifact.$field must be a String');
+    }
+    return value;
+  }
 
   Map<String, dynamic> toJson() => {
     'formatVersion': formatVersion,

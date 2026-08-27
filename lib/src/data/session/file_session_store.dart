@@ -35,10 +35,11 @@ class FileSessionStore implements SessionPort {
     final target = _fileFor(session.id);
     final tmp = File('${target.path}.tmp');
     // Atomic write: the rename is the commit point.
-    final map = session.toJson();
-    // Embed the format version so a future reader can reject unsupported
-    // formats (spec FR-011). Absent version = legacy (tolerated).
-    map['formatVersion'] = PortableSessionArtifact.version;
+    // Copy the map first so we never mutate the entity's own serialization.
+    final map = Map<String, dynamic>.from(session.toJson())
+      // Embed the format version so a future reader can reject unsupported
+      // formats (spec FR-011). Absent version = legacy (tolerated).
+      ..['formatVersion'] = PortableSessionArtifact.version;
     await tmp.writeAsString(jsonEncode(map), flush: true);
     await tmp.rename(target.path);
   }

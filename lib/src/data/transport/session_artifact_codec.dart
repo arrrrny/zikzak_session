@@ -70,11 +70,14 @@ class SessionArtifactCodec {
   PortableSessionArtifact decode(String source) {
     final decoded = jsonDecode(source);
     if (decoded is! Map<String, dynamic>) {
-      throw const SessionUnsupportedVersionException(
-        'artifact is not a JSON object',
-      );
+      throw const FormatException('artifact root must be a JSON object');
     }
     final version = decoded['formatVersion'];
+    // NOTE: the codec strictly requires the current [supportedVersion], while
+    // [FileSessionStore.load] tolerates `formatVersion <= current` (legacy and
+    // absent versions stay loadable). Once [PortableSessionArtifact.version] is
+    // bumped, stored v1 sessions remain readable but become undecodable here —
+    // revisit this gate alongside the store's tolerance on the next schema bump.
     if (version is! int || version != supportedVersion) {
       throw SessionUnsupportedVersionException(
         'unsupported format version: $version',
