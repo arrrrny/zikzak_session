@@ -83,4 +83,4 @@ canonicalized.
 
 ## Status
 
-Standalone package under active development (spec `specs/001-portable-browser-sessions`). Depends on `zuraffa` via a path dependency until the next hosted publish (see zuraffa#481/#482).
+Standalone package under active development (spec `specs/001-portable-browser-sessions`). Depends on the hosted `zuraffa` constraint (`^7.0.1`).

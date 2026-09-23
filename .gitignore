@@ -15,7 +15,6 @@ build/
 # zfa local state
 .zfa/
 .zfa.json
-build.yaml
 
 # Test coverage output
 coverage/

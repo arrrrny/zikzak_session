@@ -6,7 +6,7 @@
 
 - Widen the `zuraffa` constraint to `^7.0.1` (was `^6.0.0`). Consumers still on the zuraffa 6.x line must upgrade to 7.x before taking this version.
 
-### Chores
+### Tests
 
 - Verify the whole suite against zuraffa 7.0.1 — 37/37 tests pass, `dart analyze lib` clean.
 

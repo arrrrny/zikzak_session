@@ -1,0 +1,9 @@
+# Tracked so `dart run build_runner build` reproduces the committed *.g.dart.
+# include_if_null: false keeps nullable fields as null-aware elements
+# (`'expiresAt': ?instance.expiresAt`) instead of always-present keys.
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          include_if_null: false

@@ -20,11 +20,11 @@ dependencies:
 ```
 
 pub.dev **rejects** path dependencies. Before publishing, convert it to the hosted
-constraint (the published version is `6.0.0` as of this writing):
+constraint (the published version is `7.0.1` as of this writing):
 
 ```yaml
 dependencies:
-  zuraffa: ^6.0.0
+  zuraffa: ^7.0.1
 ```
 
 The reverse conversion (path dep) is the normal dev setup — keep `../zuraffa` on the
@@ -49,7 +49,7 @@ Run `dart pub get` after the swap so `pubspec.lock` re-resolves.
 
 1. Update `CHANGELOG.md` (use changelog-manager skill: prepend `## X.Y.Z - YYYY-MM-DD`).
 2. Create release branch: `git checkout -b publish-<version>`.
-3. Bump `version:` in `pubspec.yaml`; convert `zuraffa` path dep → `^6.0.0`; `dart pub get`.
+3. Bump `version:` in `pubspec.yaml`; convert `zuraffa` path dep → `^7.0.1`; `dart pub get`.
 4. Validate: `dart pub publish --dry-run` and `dart analyze` (expect only the
    "uncommitted files" warning).
 5. Commit (`Prepare for publishing version <version>`) and `git push -u origin publish-<version>`.
