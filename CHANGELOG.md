@@ -1,3 +1,13 @@
+## 0.3.1 - 2026-10-29
+
+### Discontinued
+
+- This package is retired in favor of [`zuraffa_session`](https://pub.dev/packages/zuraffa_session)
+  ^7.3.0 — the fleet's session line on the unified zuraffa family (same
+  `SessionPort` / `PortableSession` / `SessionManager` / `FileSessionStore`
+  surface; an import swap migrates). The `zuraffa` constraint follows the
+  family line (`^7.3.0`) so the tombstone resolves inside 7.3.0-only graphs.
+
 # Changelog
 
 ## 0.3.0 - 2026-09-23

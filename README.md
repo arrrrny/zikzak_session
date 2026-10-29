@@ -1,5 +1,15 @@
 # zikzak_session
 
+> ⛔ **DISCONTINUED (2026-10-29).** This package is superseded by
+> [`zuraffa_session`](https://pub.dev/packages/zuraffa_session) — the same
+> portable-session surface (`SessionPort`, `PortableSession`,
+> `SessionManager`, `FileSessionStore`, `PortableSessionArtifact`) on the
+> unified zuraffa 7.3.0 family line, published as
+> [7.3.0](https://pub.dev/packages/zuraffa_session). Migrate with an import
+> swap: `package:zikzak_session/zikzak_session.dart` →
+> `package:zuraffa_session/zuraffa_session.dart`. No new releases will land
+> here; the fleet's session work continues on `zuraffa_session`.
+
 Portable browser sessions for the Zuraffa ecosystem — self-contained units of webview state (cookies + DOM storage) that persist to a relocatable store and reload onto a specific site.
 
 Built for consumers like `zikzak_inappwebview` and the `forklift` orchestrator (multiple cloaked browser profiles that must survive restarts), and constructed entirely with the `zfa` clean-architecture CLI: entities, datasources, repositories, and usecases are generated; the hand-written layer is the `SessionPort` contract, the file-backed store, the `SessionManager` facade, the transport codec, the validation layer, and DI wiring.
